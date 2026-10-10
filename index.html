@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Beautiful Heart Animation ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #351027, #10000c 75%);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.scene {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 20px;
+}
+
+h1 {
+    font-size: clamp(25px, 5vw, 42px);
+    margin-bottom: 25px;
+    color: #ffb7d5;
+    text-shadow: 0 0 20px #ff176b;
+}
+
+.heart-wrap {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    display: grid;
+    place-items: center;
+    margin: 15px 0 30px;
+}
+
+.heart {
+    position: relative;
+    width: 95px;
+    height: 95px;
+    background: #ff174f;
+    transform: rotate(-45deg);
+    animation: heartbeat 1s infinite;
+    box-shadow: 0 0 35px #ff174f, 0 0 75px #ff174f;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 95px;
+    height: 95px;
+    background: #ff174f;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -47px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 47px;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: rotate(-45deg) scale(1);
+    }
+    15% {
+        transform: rotate(-45deg) scale(1.2);
+    }
+    30% {
+        transform: rotate(-45deg) scale(1);
+    }
+    45% {
+        transform: rotate(-45deg) scale(1.15);
+    }
+    60% {
+        transform: rotate(-45deg) scale(1);
+    }
+}
+
+.message {
+    font-size: clamp(16px, 3vw, 22px);
+    color: #ffd5e4;
+    margin-bottom: 25px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+button {
+    border: 1px solid #ff8cb8;
+    border-radius: 30px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #ff174f, #d60069);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+button:hover {
+    transform: scale(1.07);
+}
+
+button:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -40px;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+    opacity: 0.8;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.7);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(-110vh) rotate(35deg) scale(1.4);
+        opacity: 0;
+    }
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, #fff 50%, transparent 60%),
+        radial-gradient(2px 2px at 70% 20%, #ff9fc5 50%, transparent 60%),
+        radial-gradient(2px 2px at 80% 70%, #fff 50%, transparent 60%),
+        radial-gradient(2px 2px at 30% 80%, #ff9fc5 50%, transparent 60%);
+    background-size: 180px 180px;
+    opacity: 0.55;
+}
+
+.scene > *:not(.stars):not(#particles) {
+    z-index: 2;
+}
+
+#particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.status {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #ffbad4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heart {
+        animation: none;
+    }
+
+    .floating-heart {
+        animation-duration: 8s !important;
+    }
+}
+.name {
+    margin-top: 20px;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: bold;
+    color: #ffb6d5;
+    text-shadow:
+        0 0 10px #ff174f,
+        0 0 25px #ff174f,
+        0 0 45px #ff69b4;
+    animation: nameGlow 1.5s infinite alternate;
+}
+
+@keyframes nameGlow {
+    from {
+        transform: scale(1);
+        text-shadow: 0 0 10px #ff174f;
+    }
+    to {
+        transform: scale(1.08);
+        text-shadow:
+            0 0 20px #ff174f,
+            0 0 40px #ff69b4;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="scene">
+    <div class="stars"></div>
+    <div id="particles" aria-hidden="true"></div>
+
+    <h1>❤️ Heart Animation ❤️</h1>
+
+    <div class="heart-wrap">
+        <div class="heart" id="mainHeart"></div>
+    </div>
+
+    <p class="message">A Little Heart Full of Love 💕</p>
+
+    <div class="controls">
+        <button id="playBtn" type="button">▶ Play</button>
+        <button id="pauseBtn" type="button">⏸ Pause</button>
+        <button id="burstBtn" type="button">💖 More Hearts</button>
+    </div>
+
+    <p class="status" id="status" aria-live="polite">
+        Animation is playing ❤️
+    </p>
+</main>
+
+<script>
+const heart = document.getElementById("mainHeart");
+const particles = document.getElementById("particles");
+const playBtn = document.getElementById("playBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+const burstBtn = document.getElementById("burstBtn");
+const statusText = document.getElementById("status");
+
+let isPlaying = true;
+let particleTimer = null;
+
+function createHeart() {
+    if (!isPlaying || particles.childElementCount > 35) return;
+
+    const item = document.createElement("span");
+    item.className = "floating-heart";
+    item.textContent = ["❤️", "💖", "💕", "💗", "💘"][
+        Math.floor(Math.random() * 5)
+    ];
+
+    item.style.left = Math.random() * 100 + "%";
+    item.style.fontSize = (16 + Math.random() * 25) + "px";
+    item.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+    item.addEventListener("animationend", () => item.remove());
+    particles.appendChild(item);
+}
+
+function startParticles() {
+    clearInterval(particleTimer);
+    particleTimer = setInterval(createHeart, 350);
+}
+
+function playAnimation() {
+    isPlaying = true;
+    heart.style.animationPlayState = "running";
+    particles.querySelectorAll(".floating-heart").forEach(item => {
+        item.style.animationPlayState = "running";
+    });
+
+    playBtn.disabled = true;
+    pauseBtn.disabled = false;
+    statusText.textContent = "Animation is playing ❤️";
+    startParticles();
+}
+
+function pauseAnimation() {
+    isPlaying = false;
+    heart.style.animationPlayState = "paused";
+    clearInterval(particleTimer);
+
+    particles.querySelectorAll(".floating-heart").forEach(item => {
+        item.style.animationPlayState = "paused";
+    });
+
+    playBtn.disabled = false;
+    pauseBtn.disabled = true;
+    statusText.textContent = "Animation paused ⏸";
+}
+
+playBtn.addEventListener("click", playAnimation);
+pauseBtn.addEventListener("click", pauseAnimation);
+
+burstBtn.addEventListener("click", () => {
+    for (let i = 0; i < 12; i++) {
+        const wasPlaying = isPlaying;
+        if (!wasPlaying) {
+            isPlaying = true;
+        }
+        createHeart();
+        isPlaying = wasPlaying;
+    }
+
+    statusText.textContent = "More hearts! 💖";
+});
+
+playAnimation();
+</script>
+
+</body>
+</html>
